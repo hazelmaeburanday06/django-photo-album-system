@@ -1,8 +1,17 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 from .models import Album, Photo
+from .forms import AlbumForm, PhotoForm
+
 
 class AlbumListView(LoginRequiredMixin, ListView):
     model = Album
@@ -16,7 +25,7 @@ class AlbumDetailView(LoginRequiredMixin, DetailView):
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
-    fields = ['title', 'description']
+    form_class = AlbumForm
     template_name = 'albums/form.html'
     success_url = reverse_lazy('album-list')
 
@@ -25,29 +34,23 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AlbumUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     model = Album
-    fields = ['title', 'description']
+    form_class = AlbumForm
     template_name = 'albums/form.html'
     success_url = reverse_lazy('album-list')
 
-    def test_func(self):
-        album = self.get_object()
-        return self.request.user == album.owner or self.request.user.is_superuser
 
-
-class AlbumDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
     template_name = 'albums/delete.html'
     success_url = reverse_lazy('album-list')
 
-    def test_func(self):
-        album = self.get_object()
-        return self.request.user == album.owner or self.request.user.is_superuser
-
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):
     model = Photo
-    fields = ['album', 'image', 'caption']
+    form_class = PhotoForm
     template_name = 'albums/form.html'
-    success_url = reverse_lazy('album-list')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
