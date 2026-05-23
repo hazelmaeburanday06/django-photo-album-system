@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Photo
+from .forms import PhotoForm
 from django.views.generic import (
     ListView,
     DetailView,
@@ -47,10 +49,11 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('album-list')
 
 
-class PhotoCreateView(LoginRequiredMixin, CreateView):
+class PhotoCreateView(CreateView):
     model = Photo
     form_class = PhotoForm
-    template_name = 'albums/form.html'
+    template_name = 'albums/photo.upload.html'
+    success_url = reverse_lazy('album-list')
 
     def form_valid(self, form):
         return super().form_valid(form)
