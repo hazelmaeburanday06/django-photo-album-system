@@ -4,17 +4,34 @@
     <title>Photo Album</title>
 </head>
 <body>
+
     <h1>Photo Album Management System</h1>
 
     {% if user.is_authenticated %}
+
         <p>Welcome {{ user.username }}</p>
-        <a href="/accounts/logout/">Logout</a>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit">
+                Logout
+            </button>
+        </form>
+
     {% else %}
-        <a href="/accounts/login/">Login</a>
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
     {% endif %}
 
     <hr>
 
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
+
 </body>
 </html>
