@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="/album/create/">Create Album</a>
+<a href="/photo/create/">Upload Photo</a>
+
+<ul>
+{% for album in object_list %}
+    <li>
+        <a href="/album/{{ album.id }}/">{{ album.title }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<p>{{ object.description }}</p>
+
+<a href="/album/{{ object.id }}/update/">Edit</a>
+<a href="/album/{{ object.id }}/delete/">Delete</a>
+
+<h3>Photos</h3>
+
+{% for photo in album.photos.all %}
+    <img src="{{ photo.image.url }}" width="300">
+    <p>{{ photo.caption }}</p>
+{% endfor %}
+{% endblock %}
