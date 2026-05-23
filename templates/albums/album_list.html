@@ -1,14 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="/album/create/">Create Album</a>
-<a href="/photo/create/">Upload Photo</a>
 
-<ul>
-{% for album in object_list %}
-    <li>
-        <a href="/album/{{ album.id }}/">{{ album.title }}</a>
-    </li>
-{% endfor %}
-</ul>
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h1 class="fw-bold">
+        My Albums
+    </h1>
+
+    <a
+        href="{% url 'album-create' %}"
+        class="btn btn-primary btn-custom"
+    >
+        + Create Album
+    </a>
+
+</div>
+
+<div class="row g-4">
+
+    {% for album in object_list %}
+
+        <div class="col-md-4">
+
+            <div class="card p-3 h-100">
+
+                <div class="card-body">
+
+                    <h3 class="fw-bold">
+                        {{ album.title }}
+                    </h3>
+
+                    <p>
+                        {{ album.description }}
+                    </p>
+
+                    <a
+                        href="{% url 'album-detail' album.pk %}"
+                        class="btn btn-primary btn-custom"
+                    >
+                        Open Album
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <p>No albums yet.</p>
+
+    {% endfor %}
+
+</div>
+
 {% endblock %}
