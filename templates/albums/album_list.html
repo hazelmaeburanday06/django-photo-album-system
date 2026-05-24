@@ -20,11 +20,22 @@
 
     <div class="col-md-4 mb-4">
 
-        <div class="card album-card">
+        <div class="card album-card shadow-sm">
 
-           <img src="https://via.placeholder.com/500x300"
-     class="card-img-top album-image">
-     
+            {% if album.photos.first %}
+
+                <img src="{{ album.photos.first.image.url }}"
+                     class="card-img-top album-image"
+                     style="height: 250px; object-fit: cover;">
+
+            {% else %}
+
+                <img src="https://via.placeholder.com/500x300"
+                     class="card-img-top album-image"
+                     style="height: 250px; object-fit: cover;">
+
+            {% endif %}
+
             <div class="card-body">
 
                 <h4 class="card-title">
@@ -47,6 +58,10 @@
         </div>
 
     </div>
+
+    {% empty %}
+
+    <p>No albums yet.</p>
 
     {% endfor %}
 
