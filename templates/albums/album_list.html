@@ -2,59 +2,8 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<h1>Login Successful</h1>
 
-    <h1 class="fw-bold">
-        My Photo Albums
-    </h1>
-
-    <a href="{% url 'album_create' %}" class="btn btn-custom">
-        + Create Album
-    </a>
-
-</div>
-
-<div class="row">
-
-    {% for album in albums %}
-
-    <div class="col-md-4 mb-4">
-
-        <div class="card album-card">
-
-            {% if album.cover %}
-                <img src="{{ album.cover.url }}"
-                     class="card-img-top album-image">
-            {% else %}
-                <img src="https://via.placeholder.com/500x300"
-                     class="card-img-top album-image">
-            {% endif %}
-
-            <div class="card-body">
-
-                <h4 class="card-title">
-                    {{ album.title }}
-                </h4>
-
-                <p class="text-muted">
-                    {{ album.description }}
-                </p>
-
-                <a href="{% url 'album_detail' album.id %}"
-                   class="btn btn-custom w-100">
-
-                    View Photos
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    {% endfor %}
-
-</div>
+<p>Welcome {{ user.username }}</p>
 
 {% endblock %}
