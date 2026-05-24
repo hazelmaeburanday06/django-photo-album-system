@@ -14,6 +14,10 @@ from django.views.generic import (
 from .models import Album, Photo
 from .forms import AlbumForm, PhotoForm
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import TemplateView
+
+class HomeView(TemplateView):
+    template_name = "base.html"
 
 class AlbumListView(LoginRequiredMixin, ListView):
     model = Album
