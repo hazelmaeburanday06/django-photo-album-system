@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Photo
@@ -13,7 +13,7 @@ from django.views.generic import (
 
 from .models import Album, Photo
 from .forms import AlbumForm, PhotoForm
-
+from django.contrib.auth.forms import UserCreationForm
 
 class AlbumListView(LoginRequiredMixin, ListView):
     model = Album
@@ -57,3 +57,19 @@ class PhotoCreateView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+    
+def signup(request):
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+
+    else:
+        form = UserCreationForm()
+
+    return render(request,'registration/signup.html',{
+        'form':form
+    })

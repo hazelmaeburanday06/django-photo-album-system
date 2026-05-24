@@ -1,5 +1,5 @@
 from django.urls import path
-
+from . import views
 from .views import (
     AlbumListView,
     AlbumDetailView,
@@ -45,4 +45,6 @@ urlpatterns = [
         PhotoCreateView.as_view(),
         name='photo-upload'
     ),
+
+    path('signup/', views.signup, name='signup'),
 ]
