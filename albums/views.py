@@ -15,6 +15,31 @@ from .models import Album, Photo
 from .forms import AlbumForm, PhotoForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView
+from django.urls import reverse
+
+
+class PhotoCreateView(CreateView):
+    model = Photo
+    form_class = PhotoForm
+    template_name = 'albums/photo_upload.html'
+
+    def form_valid(self, form):
+
+        album = Album.objects.get(
+            id=self.kwargs['pk']
+        )
+
+        form.instance.album = album
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+
+        return reverse(
+            'album-detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
 
 class HomeView(TemplateView):
     template_name = "albums/home.html"
@@ -57,11 +82,23 @@ class PhotoCreateView(CreateView):
     model = Photo
     form_class = PhotoForm
     template_name = 'albums/photo_upload.html'
-    success_url = reverse_lazy('album-list')
 
     def form_valid(self, form):
+
+        album = Album.objects.get(
+            id=self.kwargs['pk']
+        )
+
+        form.instance.album = album
+
         return super().form_valid(form)
-    
+
+    def get_success_url(self):
+
+        return reverse(
+            'album-detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
 def signup(request):
 
     if request.method == 'POST':
