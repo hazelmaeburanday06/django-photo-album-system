@@ -70,9 +70,9 @@
 
         <div class="ms-auto">
 
-           {% if user.is_authenticated %}
+          {% if user.is_authenticated %}
 
-    <form method="POST" action="{% url 'logout' %}">
+<form method="POST" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-light">
         Logout
@@ -80,15 +80,16 @@
 </form>
 
 {% else %}
-            {% else %}
-                <a href="{% url 'login' %}" class="btn btn-light me-2">
-                    Login
-                </a>
 
-                <a href="{% url 'signup' %}" class="btn btn-warning">
-                    Signup
-                </a>
-            {% endif %}
+<a href="{% url 'login' %}" class="btn btn-light me-2">
+    Login
+</a>
+
+<a href="{% url 'signup' %}" class="btn btn-warning">
+    Signup
+</a>
+
+{% endif %}
 
         </div>
     </div>
