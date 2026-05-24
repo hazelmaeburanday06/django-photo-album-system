@@ -53,6 +53,12 @@ class AlbumDetailView(LoginRequiredMixin, DetailView):
     model = Album
     template_name = 'albums/album_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['photos'] = self.object.photos.all()
+
+        return context
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
