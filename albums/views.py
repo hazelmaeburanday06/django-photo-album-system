@@ -56,7 +56,7 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
 class PhotoCreateView(CreateView):
     model = Photo
     form_class = PhotoForm
-    template_name = 'albums/photo.upload.html'
+    template_name = 'albums/photo_upload.html'
     success_url = reverse_lazy('album-list')
 
     def form_valid(self, form):
