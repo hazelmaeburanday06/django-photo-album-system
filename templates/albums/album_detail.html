@@ -2,13 +2,42 @@
 
 {% block content %}
 
-<h1 class="fw-bold mb-4">
-    {{ object.title }}
-</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h1 class="fw-bold">
+        {{ album.title }}
+    </h1>
+
+    <div>
+
+        <a href="{% url 'photo-upload' album.id %}"
+           class="btn btn-success me-2">
+
+            Upload Photo
+
+        </a>
+
+        <a href="{% url 'album-update' album.id %}"
+           class="btn btn-warning me-2">
+
+            Edit
+
+        </a>
+
+        <a href="{% url 'album-delete' album.id %}"
+           class="btn btn-danger">
+
+            Delete
+
+        </a>
+
+    </div>
+
+</div>
 
 <div class="row">
 
-    {% for photo in object.photos.all %}
+    {% for photo in photos %}
 
     <div class="col-md-4 mb-4">
 
@@ -16,6 +45,14 @@
 
             <img src="{{ photo.image.url }}"
                  class="card-img-top album-image">
+
+            <div class="card-body">
+
+                <p class="text-muted">
+                    {{ photo.caption }}
+                </p>
+
+            </div>
 
         </div>
 
