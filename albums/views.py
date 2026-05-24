@@ -56,10 +56,11 @@ class AlbumDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['photos'] = self.object.photos.all()
+        context['photos'] = Photo.objects.filter(
+            album=self.object
+        )
 
         return context
-
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
     form_class = AlbumForm
