@@ -3,12 +3,12 @@
 {% block content %}
 
 <h1 class="fw-bold mb-4">
-    {{ album.title }}
+    {{ object.title }}
 </h1>
 
 <div class="row">
 
-    {% for photo in photos %}
+    {% for photo in object.photos.all %}
 
     <div class="col-md-4 mb-4">
 
@@ -20,6 +20,10 @@
         </div>
 
     </div>
+
+    {% empty %}
+
+    <p>No photos uploaded yet.</p>
 
     {% endfor %}
 
