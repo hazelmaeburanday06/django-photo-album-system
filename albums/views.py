@@ -48,10 +48,20 @@ class AlbumListView(LoginRequiredMixin, ListView):
     model = Album
     template_name = 'albums/album_list.html'
 
+    def get_queryset(self):
+        return Album.objects.filter(
+            owner=self.request.user
+        )
+
 
 class AlbumDetailView(LoginRequiredMixin, DetailView):
     model = Album
     template_name = 'albums/album_detail.html'
+
+    def get_queryset(self):
+        return Album.objects.filter(
+            owner=self.request.user
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,11 +88,21 @@ class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'albums/form.html'
     success_url = reverse_lazy('album-list')
 
+    def get_queryset(self):
+        return Album.objects.filter(
+            owner=self.request.user
+        )
+
 
 class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
     template_name = 'albums/delete.html'
     success_url = reverse_lazy('album-list')
+
+    def get_queryset(self):
+        return Album.objects.filter(
+            owner=self.request.user
+        )
 
 
 class PhotoCreateView(CreateView):
